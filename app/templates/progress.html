@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block title %}Progress — FitFuel{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-1">Your Progress</h2>
+    <p class="text-muted mb-4">Check in once a week. FitFuel watches your trend and tunes your calories and difficulty to match.</p>
+
+    <!-- ============ Stats ============ -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-value">{% if current_weight %}{{ '%.1f'|format(current_weight) }}<small> kg</small>{% else %}—{% endif %}</div>
+                <div class="text-muted">Current weight</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% if change is not none %}
+                        <span class="{% if change > 0 %}delta-up{% elif change < 0 %}delta-down{% endif %}">{{ '%+.1f'|format(change) }}<small> kg</small></span>
+                    {% else %}—{% endif %}
+                </div>
+                <div class="text-muted">Since first check-in</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-value">{{ streak }}{% if streak %} 🔥{% endif %}</div>
+                <div class="text-muted">Week streak ({{ workout_target }}+ workouts)</div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="stat-card">
+                <div class="stat-value">{% if this_week is not none %}{{ this_week }}<small> / {{ workout_target }}</small>{% else %}—{% endif %}</div>
+                <div class="text-muted">Workouts this week</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- ============ Check-in form ============ -->
+        <div class="col-lg-5">
+            <div class="progress-card h-100">
+                <h5 class="mb-3">Weekly check-in</h5>
+                <form method="POST" action="{{ url_for('progress.log') }}" novalidate>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="mb-3">
+                        <label class="form-label" for="log_date">Date</label>
+                        <input type="date" class="form-control" id="log_date" name="log_date" value="{{ today }}" max="{{ today }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="weight">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" name="weight" step="0.1" min="20" max="400"
+                               placeholder="e.g. 70.5" {% if current_weight %}value="{{ '%.1f'|format(current_weight) }}"{% endif %} required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="workouts">Workouts completed this week</label>
+                        <input type="number" class="form-control" id="workouts" name="workouts" min="0" max="7" step="1"
+                               placeholder="0 – 7" required>
+                        <div class="form-text">Goal: {{ workout_target }} a week. Rest days are part of the plan.</div>
+                    </div>
+                    <button type="submit" class="btn btn-accent w-100">Save check-in</button>
+                    <div class="form-text mt-2">Checking in on a date you already logged updates that entry.</div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============ Adaptive plan ============ -->
+        <div class="col-lg-7">
+            <div class="progress-card reco-card h-100">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="mb-0">Adaptive plan</h5>
+                    {% if reco %}
+                        {% if reco.status == 'adjust' %}<span class="reco-badge adjust">Update suggested</span>
+                        {% elif reco.status == 'on_track' %}<span class="reco-badge ok">On track ✔</span>
+                        {% else %}<span class="reco-badge wait">Needs more data</span>{% endif %}
+                    {% endif %}
+                </div>
+
+                {% if not reco %}
+                    <p class="text-muted">Adaptive tuning uses the goal and calorie target from your latest plan. Build a plan first, then come back and log your progress.</p>
+                    <a href="{{ url_for('main.index') }}" class="btn btn-accent">Build a plan</a>
+                {% else %}
+                    <p class="text-muted small mb-3">
+                        Current plan: <strong>{{ reco.current_calories }} kcal</strong> · goal <strong>{{ reco.goal }}</strong> · difficulty <strong>{{ reco.difficulty }}/5</strong>
+                        {% if reco.rate is not none %} · trend <strong>{{ '%+.2f'|format(reco.rate) }} kg/week</strong>{% endif %}
+                    </p>
+
+                    {% if reco.status == 'adjust' %}
+                    <div class="reco-changes mb-3">
+                        {% if reco.calorie_change != 0 %}
+                        <div class="reco-change">
+                            <div class="label">Daily calories</div>
+                            <div class="value">{{ reco.current_calories }} → <span class="accent">{{ reco.new_calories }}</span></div>
+                            <div class="small text-muted">{{ '%+d'|format(reco.calorie_change) }} kcal/day</div>
+                        </div>
+                        {% if new_macros %}
+                        <div class="reco-change">
+                            <div class="label">New macros</div>
+                            <div class="value small-value">P {{ new_macros.protein }}g · C {{ new_macros.carbs }}g · F {{ new_macros.fats }}g</div>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        {% if reco.difficulty_change != 0 %}
+                        <div class="reco-change">
+                            <div class="label">Difficulty</div>
+                            <div class="value">{{ reco.difficulty }} → <span class="accent">{{ reco.new_difficulty }}</span></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <ul class="reco-reasons">
+                        {% for r in reco.reasons %}<li>{{ r }}</li>{% endfor %}
+                    </ul>
+
+                    {% if reco.status == 'adjust' %}
+                    <form method="POST" action="{{ url_for('progress.apply') }}" class="mt-3">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-accent">Apply to my plan</button>
+                        <span class="small text-muted ms-2">Creates a new plan in your History. Your old plan stays.</span>
+                    </form>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ Charts ============ -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-7">
+            <div class="progress-card">
+                <h5 class="mb-3">Weight over time</h5>
+                {% if has_entries %}
+                <div class="chart-wrap"><canvas id="weightChart" aria-label="Weight over time" role="img"></canvas></div>
+                {% else %}
+                <p class="text-muted mb-0">Your weight chart appears after your first check-in.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="progress-card">
+                <h5 class="mb-3">Workouts per week</h5>
+                {% if has_entries %}
+                <div class="chart-wrap"><canvas id="workoutChart" aria-label="Workouts per week" role="img"></canvas></div>
+                {% else %}
+                <p class="text-muted mb-0">Your workout chart appears after your first check-in.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ History table ============ -->
+    {% if has_entries %}
+    <div class="progress-card mb-5">
+        <h5 class="mb-3">Check-in history</h5>
+        <div class="table-responsive">
+            <table class="table table-plans align-middle mb-0">
+                <thead><tr><th>Date</th><th>Weight</th><th>Workouts</th><th></th></tr></thead>
+                <tbody>
+                    {% for e in entries %}
+                    <tr>
+                        <td>{{ e.log_date.strftime('%d %b %Y') }}</td>
+                        <td>{{ '%.1f'|format(e.weight_kg) }} kg</td>
+                        <td>{{ e.workouts_done }} / {{ workout_target }}</td>
+                        <td class="text-end">
+                            <form method="POST" action="{{ url_for('progress.delete', entry_id=e.id) }}" class="d-inline"
+                                  onsubmit="return confirm('Delete this check-in?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script type="application/json" id="progress-data">{{ chart|tojson }}</script>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/progress.js') }}"></script>
+{% endblock %}

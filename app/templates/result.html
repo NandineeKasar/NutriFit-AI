@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Your Plan — FitFuel{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1>
+            <span style="color: var(--text-main);">Your</span>
+            <span style="color: var(--accent-soft);">Fitness</span>
+            <span style="color: var(--accent-soft);">&amp; Nutrition</span>
+            <span style="color: var(--text-main);">Plan</span>
+        </h1>
+        {% if viewing_history %}
+            <p class="text-muted">Viewing a saved plan from your history.</p>
+        {% elif saved %}
+            <p class="text-success">✔ Saved to your history — you can revisit it anytime from your dashboard.</p>
+        {% else %}
+            <p class="text-muted">
+                <a href="{{ url_for('auth.register') }}">Create a free account</a> to save your plans and track progress over time.
+            </p>
+        {% endif %}
+    </div>
+
+    <div class="result-summary">
+        <h3 class="text-center mb-0">{{ name }}</h3>
+        <div class="macro-grid">
+            <div class="macro-box" style="grid-column: 1 / -1;">
+                <div class="label">Daily Calorie Requirement</div>
+                <div class="value">{{ daily_calories }} kcal</div>
+            </div>
+            <div class="macro-box">
+                <div class="label">Protein</div>
+                <div class="value">{{ protein }}g</div>
+            </div>
+            <div class="macro-box">
+                <div class="label">Carbs</div>
+                <div class="value">{{ carbs }}g</div>
+            </div>
+            <div class="macro-box">
+                <div class="label">Fats</div>
+                <div class="value">{{ fats }}g</div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="text-center mb-3">Weekly Plan</h3>
+
+    <div class="position-relative">
+        <div class="carousel-container d-flex justify-content-center align-items-center" style="min-height: 380px; position: relative;">
+            {% for item in plan %}
+            <div class="carousel-card day-card position-absolute {% if loop.index0 == 0 %}active{% elif loop.index0 == 1 %}next{% elif loop.index0 == plan|length - 1 %}prev{% endif %}"
+                 style="width: min(90%, 480px);" data-index="{{ loop.index0 }}">
+                <div class="day-header">Week {{ item.week }} — Day {{ item.day }}</div>
+                <h6>Workout Plan</h6>
+                <ul>
+                    {% for exercise in item.workout %}
+                    {% set ex_name = exercise.split(' - ')[0] %}
+                    <li class="exercise-item">
+                        <span class="exercise-name">{{ exercise }}</span>
+                        {% if exercise_guide and ex_name in exercise_guide %}
+                        <button type="button" class="btn-demo" data-exercise="{{ ex_name }}">&#9654; Demo</button>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h6>Diet Plan</h6>
+                <ul>
+                    {% for meal in item.diet %}
+                    <li>{{ meal }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-light btn-sm prev-btn">&#10094; Prev</button>
+            <button class="btn btn-outline-light btn-sm next-btn">Next &#10095;</button>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 mb-5">
+        <a href="{{ url_for('main.index') }}" class="btn btn-accent">Build Another Plan</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-light">Back to Dashboard</a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Exercise demo popup (filled in by static/js/exercise-demo.js) -->
+<div class="modal fade" id="exerciseModal" tabindex="-1" aria-labelledby="exerciseModalTitle" aria-hidden="true"
+     data-img-base="{{ url_for('static', filename='img/') }}">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content exercise-modal">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title" id="exerciseModalTitle"></h5>
+                    <div class="exercise-tags" id="exerciseModalTags"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-2 mb-3" id="exerciseModalImages"></div>
+                <h6 class="mb-2">How to do it</h6>
+                <ol class="exercise-steps" id="exerciseModalSteps"></ol>
+            </div>
+            <div class="modal-footer">
+                <a id="exerciseModalVideo" class="btn btn-accent" href="#" target="_blank" rel="noopener noreferrer">&#9654; Watch on YouTube</a>
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="application/json" id="exercise-guide-data">{{ exercise_guide|tojson }}</script>
+
+<style>
+    .carousel-card { transition: transform 0.35s ease, opacity 0.35s ease; opacity: 0; z-index: 1; }
+    .carousel-card.active { opacity: 1; z-index: 3; transform: translateX(0) scale(1); }
+    .carousel-card.prev { opacity: 0.35; z-index: 2; transform: translateX(-60%) scale(0.85); }
+    .carousel-card.next { opacity: 0.35; z-index: 2; transform: translateX(60%) scale(0.85); }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/exercise-demo.js') }}"></script>
+{% endblock %}

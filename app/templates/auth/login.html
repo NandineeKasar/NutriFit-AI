@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Log In — FitFuel{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+    <div class="auth-card">
+        <h2 class="mb-1">Welcome back</h2>
+        <p class="text-muted mb-4">Log in to view your saved plans and history.</p>
+
+        <form method="POST" novalidate>
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.email.label(class_="form-label") }}
+                {{ form.email(class_="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="you@example.com") }}
+                {% for error in form.email.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password.label(class_="form-label") }}
+                {{ form.password(class_="form-control" + (" is-invalid" if form.password.errors else "")) }}
+                {% for error in form.password.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-check mb-3">
+                {{ form.remember(class_="form-check-input") }}
+                {{ form.remember.label(class_="form-check-label") }}
+            </div>
+
+            {{ form.submit(class_="btn btn-accent w-100") }}
+        </form>
+
+        <p class="text-muted text-center mt-4 mb-0">
+            Don't have an account? <a href="{{ url_for('auth.register') }}">Sign up</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

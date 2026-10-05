@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}FitFuel — Build Your Plan{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div>
+        <div class="hero-intro">
+            <h1>Fitness is the key to a healthy life</h1>
+            <p class="lead">Stay active, stay fit — get a personalized workout and nutrition plan in under a minute.</p>
+        </div>
+
+        <div id="startContainer" class="d-none">
+            <button class="btn btn-accent btn-lg px-4 py-2" id="startBtn">Start Your Plan</button>
+
+            <div class="tips-card">
+                <h3>💡 Fitness Tips & Tricks</h3>
+                <ul>
+                    <li>Stay hydrated throughout the day.</li>
+                    <li>Eat a balanced diet rich in proteins and fibers.</li>
+                    <li>Warm up before every workout session.</li>
+                    <li>Focus on consistency over intensity.</li>
+                    <li>Track your progress to stay motivated.</li>
+                </ul>
+            </div>
+
+            {% if not current_user.is_authenticated %}
+            <p class="text-muted small mt-3">
+                Tip: <a href="{{ url_for('auth.register') }}">create a free account</a> to save every plan
+                you generate and revisit it later.
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<div id="formContainer" class="d-none">
+    <div class="plan-form-card">
+        <h2 class="mb-1">Build Your Fitness &amp; Nutrition Plan</h2>
+        <p class="text-muted mb-4">Fill in your details and we'll generate a week-by-week workout and meal plan.</p>
+
+        <form id="planForm" action="{{ url_for('main.predict') }}" method="POST" class="needs-validation" novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" required maxlength="120" placeholder="Enter your name">
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Height (cm)</label>
+                    <input type="number" class="form-control" name="height" required min="50" max="272" step="0.1">
+                    <div class="invalid-feedback">Enter a height between 50–272 cm.</div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Weight (kg)</label>
+                    <input type="number" class="form-control" name="weight" required min="20" max="400" step="0.1">
+                    <div class="invalid-feedback">Enter a weight between 20–400 kg.</div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-md-6">
+                    <label class="form-label">Age (years)</label>
+                    <input type="number" class="form-control" name="age" required min="10" max="100" placeholder="Enter your age">
+                    <div class="invalid-feedback">Enter an age between 10–100.</div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label d-block">Gender</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-md-4">
+                    <label class="form-label">Goal</label>
+                    <select class="form-select" name="goal">
+                        <option value="bulking">Bulking</option>
+                        <option value="cutting">Cutting</option>
+                        <option value="maintaining">Maintaining</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Activity Level</label>
+                    <select class="form-select" name="activity_level">
+                        <option value="sedentary">Sedentary</option>
+                        <option value="light">Light</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="active">Active</option>
+                        <option value="very active">Very Active</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Difficulty Level (1–5)</label>
+                    <input type="number" class="form-control" name="difficulty" required min="1" max="5">
+                    <div class="invalid-feedback">Choose a difficulty between 1–5.</div>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-md-6">
+                    <label class="form-label">Targeted Muscle</label>
+                    <select class="form-select" name="targeted_muscle" required>
+                        <option value="chest">Chest</option>
+                        <option value="back">Back</option>
+                        <option value="legs">Legs</option>
+                        <option value="shoulder">Shoulder</option>
+                        <option value="biceps">Biceps</option>
+                        <option value="triceps">Triceps</option>
+                        <option value="core">Core</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Diet Type</label>
+                    <select class="form-select" name="diet_type" required>
+                        <option value="veg">Vegetarian</option>
+                        <option value="non-veg">Non-Vegetarian</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <label class="form-label">Number of Weeks (1–12)</label>
+                <input type="number" class="form-control w-auto" name="num_weeks" required min="1" max="12">
+                <div class="invalid-feedback">Choose between 1–12 weeks.</div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-accent btn-lg px-4">Generate Plan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

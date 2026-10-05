@@ -1,0 +1,246 @@
+Exercise Name,Targeted Muscle,Difficulty Level,Equipment,Calories Burned (per set)
+Barbell Bench Press,chest,1,Barbell,5.3
+Barbell Bench Press,chest,2,Machine,7.4
+Barbell Bench Press,chest,3,Dumbbell,12.4
+Barbell Bench Press,chest,4,Cable,5.9
+Barbell Bench Press,chest,5,Bodyweight,5.3
+Incline Dumbbell Press,chest,1,Barbell,7.2
+Incline Dumbbell Press,chest,2,Cable,11.0
+Incline Dumbbell Press,chest,3,Cable,7.0
+Incline Dumbbell Press,chest,4,Cable,9.2
+Incline Dumbbell Press,chest,5,Bodyweight,10.9
+Push-Ups,chest,1,Barbell,12.6
+Push-Ups,chest,2,Dumbbell,12.0
+Push-Ups,chest,3,Machine,7.8
+Push-Ups,chest,4,Dumbbell,14.6
+Push-Ups,chest,5,Machine,6.0
+Cable Crossover,chest,1,Bodyweight,6.0
+Cable Crossover,chest,2,Machine,11.0
+Cable Crossover,chest,3,Barbell,12.3
+Cable Crossover,chest,4,Cable,6.2
+Cable Crossover,chest,5,Bodyweight,5.8
+Chest Dips,chest,1,Machine,13.3
+Chest Dips,chest,2,Cable,13.9
+Chest Dips,chest,3,Machine,10.8
+Chest Dips,chest,4,Barbell,5.5
+Chest Dips,chest,5,Dumbbell,12.7
+Machine Chest Press,chest,1,Barbell,13.6
+Machine Chest Press,chest,2,Barbell,8.8
+Machine Chest Press,chest,3,Bodyweight,11.4
+Machine Chest Press,chest,4,Machine,6.6
+Machine Chest Press,chest,5,Machine,7.1
+Decline Bench Press,chest,1,Machine,12.0
+Decline Bench Press,chest,2,Barbell,11.1
+Decline Bench Press,chest,3,Dumbbell,10.3
+Decline Bench Press,chest,4,Dumbbell,6.6
+Decline Bench Press,chest,5,Bodyweight,7.7
+Pull-Ups,back,1,Cable,7.2
+Pull-Ups,back,2,Machine,13.4
+Pull-Ups,back,3,Barbell,7.3
+Pull-Ups,back,4,Barbell,13.1
+Pull-Ups,back,5,Bodyweight,7.7
+Lat Pulldown,back,1,Dumbbell,14.1
+Lat Pulldown,back,2,Cable,13.8
+Lat Pulldown,back,3,Machine,7.1
+Lat Pulldown,back,4,Bodyweight,9.0
+Lat Pulldown,back,5,Bodyweight,6.4
+Bent-Over Row,back,1,Dumbbell,7.5
+Bent-Over Row,back,2,Cable,10.4
+Bent-Over Row,back,3,Cable,9.3
+Bent-Over Row,back,4,Cable,9.0
+Bent-Over Row,back,5,Dumbbell,15.0
+Seated Cable Row,back,1,Dumbbell,10.1
+Seated Cable Row,back,2,Barbell,12.6
+Seated Cable Row,back,3,Barbell,6.5
+Seated Cable Row,back,4,Dumbbell,12.9
+Seated Cable Row,back,5,Bodyweight,11.0
+Deadlift,back,1,Bodyweight,8.8
+Deadlift,back,2,Bodyweight,10.3
+Deadlift,back,3,Cable,13.6
+Deadlift,back,4,Barbell,11.8
+Deadlift,back,5,Barbell,11.8
+T-Bar Row,back,1,Cable,12.5
+T-Bar Row,back,2,Machine,6.1
+T-Bar Row,back,3,Bodyweight,6.6
+T-Bar Row,back,4,Barbell,14.5
+T-Bar Row,back,5,Machine,14.7
+Single-Arm Dumbbell Row,back,1,Dumbbell,10.1
+Single-Arm Dumbbell Row,back,2,Barbell,13.7
+Single-Arm Dumbbell Row,back,3,Machine,13.4
+Single-Arm Dumbbell Row,back,4,Cable,11.1
+Single-Arm Dumbbell Row,back,5,Dumbbell,8.7
+Barbell Squat,legs,1,Dumbbell,10.4
+Barbell Squat,legs,2,Cable,14.2
+Barbell Squat,legs,3,Cable,8.2
+Barbell Squat,legs,4,Barbell,6.1
+Barbell Squat,legs,5,Machine,13.8
+Leg Press,legs,1,Machine,7.4
+Leg Press,legs,2,Dumbbell,13.8
+Leg Press,legs,3,Barbell,5.9
+Leg Press,legs,4,Bodyweight,13.2
+Leg Press,legs,5,Cable,12.7
+Lunges,legs,1,Dumbbell,11.6
+Lunges,legs,2,Cable,6.7
+Lunges,legs,3,Cable,13.7
+Lunges,legs,4,Bodyweight,14.6
+Lunges,legs,5,Cable,12.6
+Leg Extension,legs,1,Dumbbell,12.1
+Leg Extension,legs,2,Bodyweight,15.0
+Leg Extension,legs,3,Machine,9.4
+Leg Extension,legs,4,Cable,9.5
+Leg Extension,legs,5,Dumbbell,7.2
+Romanian Deadlift,legs,1,Machine,5.2
+Romanian Deadlift,legs,2,Cable,7.3
+Romanian Deadlift,legs,3,Dumbbell,5.1
+Romanian Deadlift,legs,4,Barbell,7.3
+Romanian Deadlift,legs,5,Barbell,13.6
+Leg Curl,legs,1,Barbell,10.1
+Leg Curl,legs,2,Machine,11.7
+Leg Curl,legs,3,Dumbbell,10.4
+Leg Curl,legs,4,Cable,10.8
+Leg Curl,legs,5,Dumbbell,12.8
+Calf Raise,legs,1,Bodyweight,6.9
+Calf Raise,legs,2,Barbell,11.6
+Calf Raise,legs,3,Machine,9.2
+Calf Raise,legs,4,Bodyweight,13.6
+Calf Raise,legs,5,Barbell,11.7
+Overhead Press,shoulder,1,Barbell,5.6
+Overhead Press,shoulder,2,Machine,13.0
+Overhead Press,shoulder,3,Barbell,7.5
+Overhead Press,shoulder,4,Dumbbell,10.4
+Overhead Press,shoulder,5,Dumbbell,9.2
+Lateral Raise,shoulder,1,Machine,9.6
+Lateral Raise,shoulder,2,Barbell,9.4
+Lateral Raise,shoulder,3,Cable,6.0
+Lateral Raise,shoulder,4,Cable,13.4
+Lateral Raise,shoulder,5,Barbell,14.3
+Front Raise,shoulder,1,Dumbbell,6.7
+Front Raise,shoulder,2,Bodyweight,9.8
+Front Raise,shoulder,3,Bodyweight,14.0
+Front Raise,shoulder,4,Dumbbell,8.8
+Front Raise,shoulder,5,Bodyweight,7.7
+Arnold Press,shoulder,1,Bodyweight,7.9
+Arnold Press,shoulder,2,Cable,11.6
+Arnold Press,shoulder,3,Bodyweight,6.5
+Arnold Press,shoulder,4,Machine,7.2
+Arnold Press,shoulder,5,Barbell,10.8
+Face Pull,shoulder,1,Cable,5.6
+Face Pull,shoulder,2,Machine,5.6
+Face Pull,shoulder,3,Cable,9.8
+Face Pull,shoulder,4,Cable,6.6
+Face Pull,shoulder,5,Cable,5.8
+Upright Row,shoulder,1,Dumbbell,5.7
+Upright Row,shoulder,2,Barbell,11.8
+Upright Row,shoulder,3,Dumbbell,9.0
+Upright Row,shoulder,4,Cable,7.5
+Upright Row,shoulder,5,Cable,5.4
+Shrugs,shoulder,1,Barbell,9.2
+Shrugs,shoulder,2,Cable,10.7
+Shrugs,shoulder,3,Machine,14.3
+Shrugs,shoulder,4,Dumbbell,11.7
+Shrugs,shoulder,5,Machine,7.4
+Barbell Curl,biceps,1,Bodyweight,6.3
+Barbell Curl,biceps,2,Machine,9.6
+Barbell Curl,biceps,3,Barbell,5.1
+Barbell Curl,biceps,4,Cable,15.0
+Barbell Curl,biceps,5,Barbell,5.7
+Dumbbell Curl,biceps,1,Dumbbell,10.1
+Dumbbell Curl,biceps,2,Dumbbell,14.3
+Dumbbell Curl,biceps,3,Barbell,13.8
+Dumbbell Curl,biceps,4,Machine,7.8
+Dumbbell Curl,biceps,5,Bodyweight,13.3
+Hammer Curl,biceps,1,Machine,11.1
+Hammer Curl,biceps,2,Cable,5.1
+Hammer Curl,biceps,3,Cable,8.0
+Hammer Curl,biceps,4,Barbell,14.4
+Hammer Curl,biceps,5,Dumbbell,7.6
+Preacher Curl,biceps,1,Barbell,12.4
+Preacher Curl,biceps,2,Dumbbell,7.7
+Preacher Curl,biceps,3,Cable,7.1
+Preacher Curl,biceps,4,Machine,7.0
+Preacher Curl,biceps,5,Machine,10.1
+Concentration Curl,biceps,1,Machine,14.1
+Concentration Curl,biceps,2,Barbell,5.9
+Concentration Curl,biceps,3,Bodyweight,13.3
+Concentration Curl,biceps,4,Barbell,5.0
+Concentration Curl,biceps,5,Dumbbell,11.4
+Cable Curl,biceps,1,Machine,6.6
+Cable Curl,biceps,2,Bodyweight,10.5
+Cable Curl,biceps,3,Bodyweight,10.6
+Cable Curl,biceps,4,Barbell,5.8
+Cable Curl,biceps,5,Dumbbell,10.5
+Incline Dumbbell Curl,biceps,1,Machine,10.8
+Incline Dumbbell Curl,biceps,2,Dumbbell,9.3
+Incline Dumbbell Curl,biceps,3,Barbell,8.1
+Incline Dumbbell Curl,biceps,4,Barbell,14.0
+Incline Dumbbell Curl,biceps,5,Dumbbell,11.8
+Tricep Pushdown,triceps,1,Barbell,8.5
+Tricep Pushdown,triceps,2,Cable,13.8
+Tricep Pushdown,triceps,3,Bodyweight,14.7
+Tricep Pushdown,triceps,4,Dumbbell,14.3
+Tricep Pushdown,triceps,5,Dumbbell,13.6
+Skull Crushers,triceps,1,Dumbbell,13.8
+Skull Crushers,triceps,2,Barbell,6.8
+Skull Crushers,triceps,3,Machine,12.8
+Skull Crushers,triceps,4,Bodyweight,13.0
+Skull Crushers,triceps,5,Dumbbell,7.7
+Overhead Tricep Extension,triceps,1,Barbell,8.8
+Overhead Tricep Extension,triceps,2,Barbell,13.6
+Overhead Tricep Extension,triceps,3,Dumbbell,7.0
+Overhead Tricep Extension,triceps,4,Bodyweight,8.5
+Overhead Tricep Extension,triceps,5,Dumbbell,7.2
+Close-Grip Bench Press,triceps,1,Dumbbell,9.0
+Close-Grip Bench Press,triceps,2,Machine,13.6
+Close-Grip Bench Press,triceps,3,Machine,8.5
+Close-Grip Bench Press,triceps,4,Cable,9.0
+Close-Grip Bench Press,triceps,5,Cable,8.3
+Dips,triceps,1,Barbell,6.2
+Dips,triceps,2,Machine,6.8
+Dips,triceps,3,Machine,5.4
+Dips,triceps,4,Cable,9.3
+Dips,triceps,5,Machine,9.4
+Kickbacks,triceps,1,Cable,6.2
+Kickbacks,triceps,2,Cable,6.9
+Kickbacks,triceps,3,Barbell,12.1
+Kickbacks,triceps,4,Barbell,10.2
+Kickbacks,triceps,5,Cable,11.9
+Rope Pushdown,triceps,1,Dumbbell,8.6
+Rope Pushdown,triceps,2,Barbell,14.5
+Rope Pushdown,triceps,3,Machine,11.2
+Rope Pushdown,triceps,4,Barbell,12.2
+Rope Pushdown,triceps,5,Machine,10.1
+Plank,core,1,Bodyweight,8.3
+Plank,core,2,Machine,10.5
+Plank,core,3,Dumbbell,9.2
+Plank,core,4,Bodyweight,11.8
+Plank,core,5,Dumbbell,11.2
+Crunches,core,1,Machine,9.1
+Crunches,core,2,Barbell,8.0
+Crunches,core,3,Dumbbell,9.3
+Crunches,core,4,Cable,11.1
+Crunches,core,5,Machine,9.6
+Russian Twists,core,1,Bodyweight,11.8
+Russian Twists,core,2,Cable,9.7
+Russian Twists,core,3,Dumbbell,11.6
+Russian Twists,core,4,Machine,10.2
+Russian Twists,core,5,Cable,8.4
+Leg Raises,core,1,Dumbbell,11.7
+Leg Raises,core,2,Dumbbell,13.1
+Leg Raises,core,3,Dumbbell,5.2
+Leg Raises,core,4,Dumbbell,14.8
+Leg Raises,core,5,Cable,13.5
+Bicycle Crunch,core,1,Barbell,9.6
+Bicycle Crunch,core,2,Cable,6.9
+Bicycle Crunch,core,3,Bodyweight,9.9
+Bicycle Crunch,core,4,Dumbbell,6.5
+Bicycle Crunch,core,5,Barbell,13.9
+Ab Wheel Rollout,core,1,Barbell,12.8
+Ab Wheel Rollout,core,2,Dumbbell,6.8
+Ab Wheel Rollout,core,3,Cable,9.6
+Ab Wheel Rollout,core,4,Cable,7.5
+Ab Wheel Rollout,core,5,Barbell,9.6
+Mountain Climbers,core,1,Bodyweight,11.7
+Mountain Climbers,core,2,Cable,11.0
+Mountain Climbers,core,3,Bodyweight,11.1
+Mountain Climbers,core,4,Cable,9.3
+Mountain Climbers,core,5,Cable,9.5

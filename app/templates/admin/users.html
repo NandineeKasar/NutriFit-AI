@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Admin — FitFuel{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-1">Admin Panel</h2>
+    <p class="text-muted mb-4">Manage registered users.</p>
+
+    <div class="table-responsive">
+        <table class="table table-plans align-middle">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Joined</th>
+                    <th>Plans</th>
+                    <th>Admin</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.created_at.strftime('%b %d, %Y') }}</td>
+                    <td>{{ plan_counts.get(u.id, 0) }}</td>
+                    <td>
+                        {% if u.is_admin %}<span class="badge bg-success">Admin</span>{% else %}<span class="badge bg-secondary">User</span>{% endif %}
+                    </td>
+                    <td>
+                        {% if u.is_active_account %}<span class="badge bg-success">Active</span>{% else %}<span class="badge bg-danger">Disabled</span>{% endif %}
+                    </td>
+                    <td class="d-flex gap-2">
+                        <form method="POST" action="{{ url_for('admin.toggle_admin', user_id=u.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-sm btn-outline-light" {% if u.id == current_user.id %}disabled{% endif %}>
+                                {{ 'Revoke Admin' if u.is_admin else 'Make Admin' }}
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.toggle_active', user_id=u.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="btn btn-sm btn-outline-danger" {% if u.id == current_user.id %}disabled{% endif %}>
+                                {{ 'Deactivate' if u.is_active_account else 'Activate' }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

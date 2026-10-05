@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — FitFuel{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-1">Welcome, {{ current_user.name.split(' ')[0] }} 👋</h2>
+    <p class="text-muted mb-4">Here's a snapshot of your fitness journey.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-sm-4">
+            <div class="stat-card">
+                <div class="stat-value">{{ total_plans }}</div>
+                <div class="text-muted">Plans generated</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="stat-card">
+                <div class="stat-value">{{ current_user.created_at.strftime('%b %Y') }}</div>
+                <div class="text-muted">Member since</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% if current_user.last_login_at %}{{ current_user.last_login_at.strftime('%b %d') }}{% else %}—{% endif %}
+                </div>
+                <div class="text-muted">Last login</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Recent Plans</h4>
+        <a href="{{ url_for('main.index') }}" class="btn btn-accent btn-sm">+ New Plan</a>
+    </div>
+
+    {% if recent_plans %}
+    <div class="table-responsive">
+        <table class="table table-plans align-middle">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Goal</th>
+                    <th>Targeted Muscle</th>
+                    <th>Diet</th>
+                    <th>Weeks</th>
+                    <th>Daily Calories</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in recent_plans %}
+                <tr>
+                    <td>{{ p.created_at.strftime('%b %d, %Y') }}</td>
+                    <td class="text-capitalize">{{ p.goal }}</td>
+                    <td class="text-capitalize">{{ p.targeted_muscle }}</td>
+                    <td class="text-capitalize">{{ p.diet_type }}</td>
+                    <td>{{ p.num_weeks }}</td>
+                    <td>{{ p.daily_calories }} kcal</td>
+                    <td><a href="{{ url_for('main.history_detail', plan_id=p.id) }}" class="btn btn-sm btn-outline-light">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="text-end">
+        <a href="{{ url_for('main.history') }}">View full history &rarr;</a>
+    </div>
+    {% else %}
+    <div class="text-center text-muted py-5">
+        <p>You haven't generated any plans yet.</p>
+        <a href="{{ url_for('main.index') }}" class="btn btn-accent">Build your first plan</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

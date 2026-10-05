@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Plan History — FitFuel{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-1">Your Plan History</h2>
+    <p class="text-muted mb-4">Every fitness &amp; nutrition plan you've generated while logged in.</p>
+
+    {% if plans %}
+    <div class="table-responsive">
+        <table class="table table-plans align-middle">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Goal</th>
+                    <th>Activity</th>
+                    <th>Targeted Muscle</th>
+                    <th>Diet</th>
+                    <th>Weeks</th>
+                    <th>Daily Calories</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in plans %}
+                <tr>
+                    <td>{{ p.created_at.strftime('%b %d, %Y %H:%M') }}</td>
+                    <td class="text-capitalize">{{ p.goal }}</td>
+                    <td class="text-capitalize">{{ p.activity_level }}</td>
+                    <td class="text-capitalize">{{ p.targeted_muscle }}</td>
+                    <td class="text-capitalize">{{ p.diet_type }}</td>
+                    <td>{{ p.num_weeks }}</td>
+                    <td>{{ p.daily_calories }} kcal</td>
+                    <td><a href="{{ url_for('main.history_detail', plan_id=p.id) }}" class="btn btn-sm btn-outline-light">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center text-muted py-5">
+        <p>No plans yet — generate one to see it appear here.</p>
+        <a href="{{ url_for('main.index') }}" class="btn btn-accent">Build a plan</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
