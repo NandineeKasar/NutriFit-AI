@@ -228,3 +228,10 @@ default in-memory store — see the
 - All templates use Jinja2's automatic HTML escaping, which is Flask's
   default and protects against basic XSS from user-entered data (e.g.
   the `name` field on the plan form).
+
+
+## 🚀 Live Demo
+
+🔗 **Live Application:** https://nutri-fit-ai-taupe.vercel.app/
+
+The application is deployed using Vercel with MySQL database hosted on Railway.
