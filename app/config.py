@@ -22,17 +22,41 @@ class Config:
     FLASK_ENV = os.environ.get("FLASK_ENV", "production")
     DEBUG = FLASK_ENV == "development"
 
-    # --- Database (MySQL) ---
-    DB_HOST = os.environ.get("DB_HOST", "localhost")
-    DB_PORT = os.environ.get("DB_PORT", "3306")
-    DB_USER = os.environ.get("DB_USER", "root")
-    DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
-    DB_NAME = os.environ.get("DB_NAME", "fitness_db")
+    # # --- Database (MySQL) ---
+    # DB_HOST = os.environ.get("DB_HOST", "localhost")
+    # DB_PORT = os.environ.get("DB_PORT", "3306")
+    # DB_USER = os.environ.get("DB_USER", "root")
+    # DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
+    # DB_NAME = os.environ.get("DB_NAME", "fitness_db")
 
-    SQLALCHEMY_DATABASE_URI = (
-        f"mysql+pymysql://{quote_plus(DB_USER)}:{quote_plus(DB_PASSWORD)}"
-        f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    )
+    # SQLALCHEMY_DATABASE_URI = (
+    #     f"mysql+pymysql://{quote_plus(DB_USER)}:{quote_plus(DB_PASSWORD)}"
+    #     f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    # )
+
+    PUBLIC_DB_URL = os.environ.get("MYSQL_PUBLIC_URL")
+
+    if PUBLIC_DB_URL:
+        if PUBLIC_DB_URL.startswith("mysql://"):
+            PUBLIC_DB_URL = PUBLIC_DB_URL.replace(
+                "mysql://",
+                "mysql+pymysql://",
+                1
+            )
+
+        SQLALCHEMY_DATABASE_URI = PUBLIC_DB_URL
+
+    else:
+        DB_HOST = os.environ.get("DB_HOST", "localhost")
+        DB_PORT = os.environ.get("DB_PORT", "3306")
+        DB_USER = os.environ.get("DB_USER", "root")
+        DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
+        DB_NAME = os.environ.get("DB_NAME", "fitness_db")
+
+        SQLALCHEMY_DATABASE_URI = (
+            f"mysql+pymysql://{quote_plus(DB_USER)}:{quote_plus(DB_PASSWORD)}"
+            f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
         "pool_pre_ping": True,   # avoids "MySQL server has gone away" errors
