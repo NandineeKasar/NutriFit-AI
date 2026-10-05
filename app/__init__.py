@@ -8,7 +8,7 @@ avoids circular imports between blueprints and extensions.
 
 import logging
 import os
-from logging.handlers import RotatingFileHandler
+
 
 from flask import Flask, render_template
 
@@ -70,29 +70,27 @@ def create_app(config_class=Config):
     app.logger.info("Application startup complete (env=%s)", app.config.get("FLASK_ENV"))
     return app
 
-
 def _configure_logging(app):
-    """Configure a rotating file logger plus console output, so operational
-    events (logins, registrations, errors, plan generations) are recorded
-    without ever writing sensitive data like passwords."""
+    """Configure application logging.
 
-    log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-    os.makedirs(log_dir, exist_ok=True)
-    log_file = os.path.join(log_dir, "app.log")
+    Vercel uses a read-only deployment filesystem, so logs are
+    written to stdout/stderr instead of a local file.
+    """
+    if app.debug:
+        log_level = logging.DEBUG
+    else:
+        log_level = logging.INFO
 
-    file_handler = RotatingFileHandler(log_file, maxBytes=1_000_000, backupCount=5)
-    formatter = logging.Formatter(
-        "%(asctime)s %(levelname)s [%(name)s] %(message)s"
-    )
-    file_handler.setFormatter(formatter)
-    file_handler.setLevel(logging.INFO)
+    app.logger.setLevel(log_level)
 
-    root_logger = logging.getLogger()
-    root_logger.setLevel(logging.INFO)
-    root_logger.addHandler(file_handler)
+    # Vercel/serverless environments should log to stdout.
+    if not app.logger.handlers:
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(log_level)
 
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    root_logger.addHandler(console_handler)
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        stream_handler.setFormatter(formatter)
 
-    app.logger.setLevel(logging.INFO)
+        app.logger.addHandler(stream_handler)
